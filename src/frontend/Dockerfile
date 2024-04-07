@@ -12,7 +12,7 @@ COPY config ./config
 COPY angular.json ./
 COPY tsconfig.json ./
 COPY tsconfig.app.json ./
-COPY tslint.json ./
+COPY .eslintrc.json ./
 
 RUN npm run build-prod
 

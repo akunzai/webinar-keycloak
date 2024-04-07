@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { promise } from 'protractor';
 import { PostListItem } from '../../models/post-list-item';
 import { BlogService } from '../../services/blog.service';
 

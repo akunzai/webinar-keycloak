@@ -4,6 +4,7 @@ import { environment } from '../../environments/environment';
 import { CreatePostModel } from '../models/create-post-model';
 import { Post } from '../models/post';
 import { PostListItem } from '../models/post-list-item';
+import { firstValueFrom } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -12,33 +13,28 @@ export class BlogService {
   constructor(private http: HttpClient) {}
 
   public get(): Promise<PostListItem[]> {
-    return this.http
-      .get<PostListItem[]>(`${environment.apiBaseUrl}/api/posts`)
-      .toPromise<PostListItem[]>();
+    return firstValueFrom(this.http
+      .get<PostListItem[]>(`${environment.apiBaseUrl}/api/posts`));
   }
 
   public detail(id: number): Promise<Post> {
-    return this.http
-      .get<Post>(`${environment.apiBaseUrl}/api/posts/${id}`)
-      .toPromise<Post>();
+    return firstValueFrom(this.http
+      .get<Post>(`${environment.apiBaseUrl}/api/posts/${id}`));
   }
 
   public create(post: CreatePostModel): Promise<CreatePostModel> {
-    return this.http
-      .post<CreatePostModel>(`${environment.apiBaseUrl}/api/posts`, post)
-      .toPromise<CreatePostModel>();
+    return firstValueFrom(this.http
+      .post<CreatePostModel>(`${environment.apiBaseUrl}/api/posts`, post));
   }
 
   public publish(id: number): Promise<Post> {
-    return this.http
-      .post<Post>(`${environment.apiBaseUrl}/api/posts/${id}/publish`, null)
-      .toPromise<Post>();
+    return firstValueFrom(this.http
+      .post<Post>(`${environment.apiBaseUrl}/api/posts/${id}/publish`, null));
   }
 
   public unpublish(id: number): Promise<Post> {
-    return this.http
-      .post<Post>(`${environment.apiBaseUrl}/api/posts/${id}/unpublish`, null)
-      .toPromise<Post>();
+    return firstValueFrom(this.http
+      .post<Post>(`${environment.apiBaseUrl}/api/posts/${id}/unpublish`, null));
   }
 
   public delete(id: number): Promise<any> {

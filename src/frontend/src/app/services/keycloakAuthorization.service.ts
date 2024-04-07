@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { KeycloakService } from 'keycloak-angular';
+import { firstValueFrom } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -22,14 +23,13 @@ export class KeycloakAuthorizationService {
     if (!this.config) {
       const keycloak = this.keycloakService.getKeycloakInstance();
       this.clientId = keycloak.clientId ?? '';
-      this.config = await this.httpClient
+      this.config = await firstValueFrom(this.httpClient
         .get(
           keycloak.authServerUrl +
             '/realms/' +
             keycloak.realm +
             '/.well-known/uma2-configuration'
-        )
-        .toPromise();
+        ));
     }
 
     const body = new URLSearchParams();
@@ -40,15 +40,13 @@ export class KeycloakAuthorizationService {
     body.set('response_mode', 'decision');
 
     try {
-      const result = await this.httpClient
-      .post(this.config.token_endpoint, body.toString(), {
+      const result = await firstValueFrom(this.httpClient
+      .post<{ result: boolean }>(this.config.token_endpoint, body.toString(), {
         headers: new HttpHeaders().set(
           'Content-Type',
           'application/x-www-form-urlencoded'
         ),
-      })
-      .toPromise<any>();
-
+      }));
       return result.result;
     } catch (error) {
       return false;

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { BlogService } from '../../services/blog.service';
+import { CreatePostModel } from 'src/app/models/create-post-model';
 
 @Component({
   selector: 'app-new-post',
@@ -22,7 +23,7 @@ export class NewPostComponent implements OnInit {
   }
 
   async onSubmit() {
-    await this.blog.create(this.postForm.value);
+    await this.blog.create(this.postForm.value as CreatePostModel);
     this.router.navigate(["/"]);
   }
 
