@@ -711,16 +711,6 @@
           "groups" : "[{\"path\":\"/Legal\",\"extendChildren\":false}]"
         }
       }, {
-        "id" : "9960ceb6-0317-4383-884c-cb08e87fd2ba",
-        "name" : "Default Policy",
-        "description" : "A policy that grants access only for users within this realm",
-        "type" : "js",
-        "logic" : "POSITIVE",
-        "decisionStrategy" : "AFFIRMATIVE",
-        "config" : {
-          "code" : "// by default, grants any permission associated with this policy\n$evaluation.grant();\n"
-        }
-      }, {
         "id" : "b50b5648-2c0c-4f54-81ba-d69ebf385ba1",
         "name" : "Publisher",
         "type" : "role",
@@ -728,17 +718,6 @@
         "decisionStrategy" : "UNANIMOUS",
         "config" : {
           "roles" : "[{\"id\":\"blog-api/publisher\",\"required\":false}]"
-        }
-      }, {
-        "id" : "dace149a-f85b-4505-8ca1-dd4770d04c4f",
-        "name" : "Default Permission",
-        "description" : "A permission that applies to the default resource type",
-        "type" : "resource",
-        "logic" : "POSITIVE",
-        "decisionStrategy" : "UNANIMOUS",
-        "config" : {
-          "defaultResourceType" : "urn:blog-api:resources:default",
-          "applyPolicies" : "[\"Default Policy\"]"
         }
       }, {
         "id" : "bf0439f2-2754-4da5-bfb9-473354dfa52d",
